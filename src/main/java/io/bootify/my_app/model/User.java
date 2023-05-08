@@ -1,15 +1,9 @@
 package io.bootify.my_app.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.time.OffsetDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 import lombok.*;
@@ -29,7 +23,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class User {
 
     @Id
-    @Column(nullable = true, updatable = false)
+    @Column(nullable = false, updatable = false)
     @SequenceGenerator(
             name = "primary_sequence",
             sequenceName = "primary_sequence",
@@ -42,15 +36,15 @@ public class User {
     )
     private Long id;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Reservation> reservations;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<Reservation> reservations = new HashSet<>();
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = false)
+    @Column(nullable = false, updatable = false)
     private OffsetDateTime dateCreated;
 
     @UpdateTimestamp
-    @Column(nullable = true)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdated;
 
     public Long getId() {

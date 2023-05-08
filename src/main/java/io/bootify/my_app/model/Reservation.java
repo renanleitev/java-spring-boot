@@ -21,11 +21,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Reservation {
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
+    @Column(nullable = false)
     private AmenityType amenityType;
 
     @Id
-    @Column(nullable = true, updatable = true)
+    @Column(nullable = false, updatable = true)
     @SequenceGenerator(
             name = "primary_sequence",
             sequenceName = "primary_sequence",
@@ -38,25 +38,25 @@ public class Reservation {
     )
     private Long id;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private LocalDate reservationDate;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private LocalTime startTime;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private LocalTime endTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = true)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
+    @Column(nullable = false, updatable = true)
     private OffsetDateTime dateCreated;
 
     @UpdateTimestamp
-    @Column(nullable = true)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdated;
 
     public Long getId() {
