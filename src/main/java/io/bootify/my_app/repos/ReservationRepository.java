@@ -1,6 +1,6 @@
 package io.bootify.my_app.repos;
 
-import io.bootify.my_app.domain.Reservation;
+import io.bootify.my_app.model.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
