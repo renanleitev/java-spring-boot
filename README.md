@@ -30,33 +30,23 @@ User Name:
 
     sa
 
-## Configurações Originais
+## Erro no Timestamp
 
-### Development
+Caso ocorra algum erro no dateCreated e no lastUpdated, se não gerar automaticamente o timestamp, substituir nos models de cada entidade/tabela:
 
-During development it is recommended to use the profile `local`. 
+dateCreated:
 
-In IntelliJ, `-Dspring.profiles.active=local` can be added in the VM options of the Run Configuration after enabling this property in "Modify options".
+    @CreationTimestamp
+    @Column(nullable = true, updatable = false)
+    private OffsetDateTime dateCreated;
 
-Update your local database connection in `application.yml` or create your own `application-local.yml` file to override settings for development.
+lastUpdated:
 
-After starting the application it is accessible under `localhost:8080`.
+    @UpdateTimestamp
+    @Column(nullable = true)
+    private OffsetDateTime lastUpdated;
 
-### Build
-
-The application can be built using the following command:
-
-```
-mvnw clean package
-```
-
-The application can then be started with the following command - here with the profile `production`:
-
-```
-java -Dspring.profiles.active=production -jar ./target/my-app-0.0.1-SNAPSHOT.jar
-```
-
-### Further readings
+## Links
 
 * [Maven docs](https://maven.apache.org/guides/index.html)  
 * [Spring Boot reference](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)  

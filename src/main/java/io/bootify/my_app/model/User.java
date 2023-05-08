@@ -11,18 +11,25 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.time.OffsetDateTime;
 import java.util.Set;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "\"user\"")
 @EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = false)
     @SequenceGenerator(
             name = "primary_sequence",
             sequenceName = "primary_sequence",
@@ -38,12 +45,12 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Reservation> reservations;
 
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    @Column(nullable = true, updatable = false)
     private OffsetDateTime dateCreated;
 
-    @LastModifiedDate
-    @Column(nullable = false)
+    @UpdateTimestamp
+    @Column(nullable = true)
     private OffsetDateTime lastUpdated;
 
     public Long getId() {
